@@ -1,11 +1,10 @@
-# College Programming Experiments
+# KTU S3 `Data Structures Lab` Programming Experiments
 
 This repository contains various programming experiments implemented in C, covering fundamental data structures and algorithms. The programs are organized into different directories, each containing an algorithm description (`algo.txt`) and the corresponding C source code.
 
 ## Directory Structure
 
 ```
-P:\Playground\CodeDump\college\forGit\
 ├───programs.txt
 ├───README.md
 ├───.git\...
@@ -111,7 +110,7 @@ P:\Playground\CodeDump\college\forGit\
 
 ## Programs Index
 
-### Programs in `Ahalia/` (Implemented by Gemini CLI)
+### Programs in `Ahalia/`
 
 *   **Circular Queue using Array:** `Ahalia/circular_queue_using_array/circular_queue.c`
 *   **Expression Binary Tree:** `Ahalia/expression_binary_tree/expression_binary_tree.c`
