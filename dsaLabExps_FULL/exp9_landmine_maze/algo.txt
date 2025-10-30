@@ -1,0 +1,47 @@
+Algorithm: Shortest Distance from Landmine in a Maze (Multi-source BFS)
+
+Problem Description:
+Given a maze (represented as a 2D grid), where some cells contain landmines, find the shortest distance from every non-landmine cell to its nearest landmine. Cells with landmines have a distance of 0. Obstacles (if any) can be represented by a special value and are not traversable.
+
+Data Structures:
+
+maze: 2D array of integers (e.g., 0 for empty, 1 for landmine, -1 for obstacle)
+distances: 2D array of integers (to store shortest distances, initialized to infinity or -1)
+queue: Queue of (row, col) pairs
+
+Algorithm Steps:
+
+1. Initialization:
+   - Initialize `distances` array with a large value (e.g., `INT_MAX` or -1) for all cells, indicating unvisited.
+   - Create an empty `queue`.
+
+2. Multi-source Start:
+   - Iterate through the `maze`:
+     - If `maze[r][c]` is a landmine (e.g., value 1):
+       - Set `distances[r][c] = 0`.
+       - Enqueue `(r, c)` into the `queue`.
+
+3. Breadth-First Search (BFS):
+   - While `queue` is not empty:
+     - `current_cell = dequeue(queue)`
+     - `current_row = current_cell.row`
+     - `current_col = current_cell.col`
+
+     - Explore Neighbors:
+       - For each valid neighbor `(next_row, next_col)` of `(current_row, current_col)` (up, down, left, right):
+         - Validity Checks:
+           - Check if `(next_row, next_col)` is within maze boundaries.
+           - Check if `maze[next_row][next_col]` is not an obstacle.
+           - Check if `distances[next_row][next_col]` is still unvisited (e.g., `INT_MAX` or -1).
+
+         - If all checks pass:
+           - `distances[next_row][next_col] = distances[current_row][current_col] + 1`.
+           - Enqueue `(next_row, next_col)` into the `queue`.
+
+4. Output:
+   - The `distances` array now contains the shortest distance from each cell to its nearest landmine. Cells that are unreachable from any landmine will retain their initial large value (or -1).
+
+Example Maze Representation:
+- 0: Empty cell
+- 1: Landmine
+- -1: Obstacle (wall)

@@ -1,0 +1,75 @@
+Algorithm: Spell Checker using Hash Table
+
+Problem Description:
+Implement a spell checker that uses a hash table to store a dictionary of words for fast lookup. It should include functions to check if a word is valid and to suggest corrections for misspelled words.
+
+Data Structures:
+
+HashTable: An array of linked lists (or other collision resolution mechanism).
+    // Each entry in the hash table will store a word (string).
+
+Part 1: Hash Table Implementation
+
+1. Hash Function:
+   - Takes a string (word) as input.
+   - Returns an integer index within the bounds of the hash table array size.
+   - Example: Sum of ASCII values of characters, modulo table size.
+
+2. `insertWord(hashTable, word)`:
+   - Calculate hash index for the `word`.
+   - Insert `word` into the linked list at that index.
+
+3. `searchWord(hashTable, word)`:
+   - Calculate hash index for the `word`.
+   - Search for `word` in the linked list at that index.
+   - Return `true` if found, `false` otherwise.
+
+Part 2: Spell Checker Functions
+
+1. `checkWord(hashTable, word)`:
+
+   Function checkWord(hashTable: HashTable, word: string) -> boolean:
+       Return searchWord(hashTable, word)
+
+2. `suggestCorrections(hashTable, misspelled_word)`:
+
+   Function suggestCorrections(hashTable: HashTable, misspelled_word: string) -> list of strings:
+       suggestions = empty list
+       word_length = length(misspelled_word)
+
+       // 1. Single character deletions
+       For i from 0 to word_length - 1:
+           temp_word = misspelled_word with character at index i deleted
+           If checkWord(hashTable, temp_word):
+               Add temp_word to suggestions
+
+       // 2. Single character insertions
+       For i from 0 to word_length:
+           For each character 'a' through 'z':
+               temp_word = misspelled_word with character 'c' inserted at index i
+               If checkWord(hashTable, temp_word):
+                   Add temp_word to suggestions
+
+       // 3. Single character substitutions
+       For i from 0 to word_length - 1:
+           original_char = misspelled_word[i]
+           For each character 'a' through 'z':
+               temp_word = misspelled_word with character at index i replaced by 'c'
+               If checkWord(hashTable, temp_word):
+                   Add temp_word to suggestions
+
+       // 4. Adjacent character swaps (transpositions)
+       For i from 0 to word_length - 2:
+           temp_word = misspelled_word with characters at index i and i+1 swapped
+           If checkWord(hashTable, temp_word):
+               Add temp_word to suggestions
+
+       Return unique suggestions from the list
+
+Main Program Flow:
+
+1. Initialize hash table.
+2. Load dictionary words into the hash table (e.g., from a file).
+3. Prompt user for a word to check.
+4. Call `checkWord`.
+5. If `checkWord` returns `false`, call `suggestCorrections` and display suggestions.

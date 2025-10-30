@@ -1,0 +1,72 @@
+Algorithm: Basic Memory Allocator and Garbage Collector using Doubly Linked List
+
+Problem Description:
+Simulate a basic memory allocator and garbage collector. The allocator manages a fixed-size memory region, allocating blocks upon request. The garbage collector identifies and reclaims unused memory blocks.
+
+Data Structures:
+
+MemoryBlock: Structure representing a block of memory.
+    start_address: integer
+    size: integer
+    is_free: boolean
+    is_marked: boolean (for GC)
+    prev: pointer to MemoryBlock
+    next: pointer to MemoryBlock
+
+DoublyLinkedList: A list of MemoryBlock structures, representing the memory heap.
+    head: pointer to MemoryBlock
+
+Part 1: Memory Allocator
+
+1. Initialization (`initMemory(total_size)`):
+   - Create a single `MemoryBlock` representing the entire `total_size` of memory.
+   - Set `start_address = 0`, `size = total_size`, `is_free = true`, `is_marked = false`.
+   - Initialize the doubly linked list with this single block as `head`.
+
+2. Allocation (`allocate(requested_size)`):
+   - Traverse the doubly linked list of `MemoryBlock`s.
+   - First Fit Strategy: Find the first `MemoryBlock` that is `is_free` and has `size >= requested_size`.
+   - If such a block is found:
+     - If `block.size == requested_size`:
+       - Set `block.is_free = false`.
+       - Return `block.start_address`.
+     - If `block.size > requested_size`:
+       - Split the block:
+         - Create a `new_free_block`:
+           - `start_address = block.start_address + requested_size`
+           - `size = block.size - requested_size`
+           - `is_free = true`
+         - Insert `new_free_block` immediately after the allocated part.
+         - Update `block.size = requested_size`.
+         - Set `block.is_free = false`.
+         - Return `block.start_address`.
+   - If no suitable free block is found:
+     - Return `NULL` (or an error code) indicating memory allocation failure.
+
+3. Deallocation (`deallocate(address)`):
+   - Traverse the doubly linked list to find the `MemoryBlock` with `start_address == address`.
+   - If found:
+     - Set `block.is_free = true`.
+     - Coalesce with adjacent free blocks:
+       - Check if `block.prev` is `is_free`. If yes, merge `block` into `block.prev`.
+       - Check if `block.next` is `is_free`. If yes, merge `block` into `block.next` (or the newly merged `block.prev`).
+
+Part 2: Garbage Collector (Mark and Sweep)
+
+1. Mark Phase (`markRoots(root_pointers)`):
+   - For each `root_pointer` (e.g., global variables, stack variables pointing to allocated memory):
+     - Find the `MemoryBlock` corresponding to `root_pointer`.
+     - Set `block.is_marked = true`.
+     - Recursively mark all reachable blocks from this block.
+
+2. Sweep Phase (`sweepMemory()`):
+   - Traverse the doubly linked list of `MemoryBlock`s.
+   - For each `MemoryBlock`:
+     - If `block.is_marked == false` and `block.is_free == false`:
+       - Set `block.is_free = true` (reclaim memory).
+       - Coalesce: Attempt to merge with adjacent free blocks (as in deallocation).
+     - Else (`block.is_marked == true`):
+       - Set `block.is_marked = false` (reset for next GC cycle).
+
+Helper Functions:
+- `printMemoryMap()`: Displays the current state of memory blocks (allocated/free).

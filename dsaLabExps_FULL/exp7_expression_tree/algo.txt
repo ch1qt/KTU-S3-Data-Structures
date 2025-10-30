@@ -1,0 +1,72 @@
+Algorithm: Create Binary Tree for Arithmetic Expression and Find Prefix/Postfix
+
+Data Structure:
+
+Structure Node:
+    data: character (operand or operator)
+    left: pointer to Node
+    right: pointer to Node
+
+Part 1: Constructing the Expression Tree
+
+This process typically involves converting an infix expression to postfix first, and then building the tree from the postfix expression.
+
+Sub-part 1.1: Infix to Postfix Conversion (as in Experiment 3)
+
+Function infixToPostfix(infix_expression: string) -> string:
+    // (Refer to Algorithm for Experiment 3 for detailed steps)
+    // Uses a stack to handle operator precedence and parentheses.
+    Return postfix_expression
+
+Sub-part 1.2: Building the Expression Tree from Postfix
+
+Function buildExpressionTree(postfix_expression: string) -> Node:
+    stack: Stack of Node pointers
+
+    For each token in postfix_expression:
+        If token is an operand:
+            newNode = createNode(token)
+            push(stack, newNode)
+        Else (token is an operator):
+            newNode = createNode(token)
+            newNode.right = pop(stack) // Right child is the second operand popped
+            newNode.left = pop(stack)  // Left child is the first operand popped
+            push(stack, newNode)
+
+    Return pop(stack) // The root of the expression tree
+
+Part 2: Finding Prefix and Postfix Equivalents (Traversal)
+
+Once the expression tree is built, prefix and postfix expressions can be obtained by performing specific tree traversals.
+
+Sub-part 2.1: Prefix Traversal (Pre-order Traversal)
+
+Function getPrefix(root: Node):
+    If root is not NULL:
+        Print root.data
+        getPrefix(root.left)
+        getPrefix(root.right)
+
+Sub-part 2.2: Postfix Traversal (Post-order Traversal)
+
+Function getPostfix(root: Node):
+    If root is not NULL:
+        getPostfix(root.left)
+        getPostfix(root.right)
+        Print root.data
+
+Helper Function: createNode
+
+Function createNode(data: character) -> Node:
+    newNode = new Node()
+    newNode.data = data
+    newNode.left = NULL
+    newNode.right = NULL
+    Return newNode
+
+Operator Precedence (for Infix to Postfix):
+
+- ^ (Exponentiation) - Highest
+- *, / (Multiplication, Division) - Medium
+- +, - (Addition, Subtraction) - Lowest
+- Parentheses () override precedence.

@@ -1,0 +1,50 @@
+Algorithm: Sparse Matrix Operations (Transpose and Sum)
+
+Part 1: Transpose of a Sparse Matrix
+
+1. Representing the Sparse Matrix:
+   - A sparse matrix is represented using a triplet format: (row, column, value).
+   - We'll use an array of structures to store these triplets.
+   - The first triplet in the array will store the dimensions of the matrix: (number of rows, number of columns, number of non-zero values).
+
+2. Input:
+   - Read the dimensions of the matrix (rows and columns).
+   - Read the non-zero elements of the matrix and store them in the triplet format.
+
+3. Finding the Transpose:
+   - Create a new array to store the transpose of the matrix.
+   - The dimensions of the transpose matrix will be (number of columns, number of rows, number of non-zero values).
+   - Iterate through each column of the original matrix (from 0 to number of columns - 1).
+   - For each column, iterate through the non-zero elements of the original matrix.
+   - If an element's column index matches the current column, create a new triplet for the transpose matrix with (original column, original row, value).
+   - Add this new triplet to the transpose matrix array.
+
+4. Output:
+   - Print the elements of the transpose matrix.
+
+Part 2: Sum of two Sparse Matrices
+
+1. Input:
+   - Read two sparse matrices in triplet format.
+   - Check if the dimensions of the two matrices are the same. If not, the addition is not possible.
+
+2. Adding the Matrices:
+   - Initialize three pointers (or indices), i, j, and k, to 1 (since index 0 stores dimensions). i for the first matrix, j for the second, and k for the resultant matrix.
+   - Compare the (row, column) pairs of the terms at the current positions of the first and second matrices.
+   - Case 1: matrix1[i] has a smaller (row, column) pair than matrix2[j] (lexicographically).
+     - Copy the term from the first matrix to the resultant matrix.
+     - Increment i and k.
+   - Case 2: matrix1[i] has a larger (row, column) pair than matrix2[j] (lexicographically).
+     - Copy the term from the second matrix to the resultant matrix.
+     - Increment j and k.
+   - Case 3: matrix1[i] and matrix2[j] have the same (row, column) pair.
+     - Add the values of the terms.
+     - If the sum is not zero, create a new term in the resultant matrix with the sum as the value and the common (row, column) pair.
+     - Increment i, j, and k.
+
+3. Copying Remaining Terms:
+   - Copy any remaining terms from the first matrix to the resultant matrix.
+   - Copy any remaining terms from the second matrix to the resultant matrix.
+
+4. Output:
+   - Print the elements of the resultant matrix.

@@ -1,0 +1,35 @@
+Algorithm: Browser Navigation using Doubly Linked List
+
+1. Data Structure:
+   - A doubly linked list to store the history of visited web pages.
+   - Each node in the list will represent a web page and contain:
+     - `url`: A string to store the URL of the web page.
+     - `prev`: A pointer to the previous node (for backward navigation).
+     - `next`: A pointer to the next node (for forward navigation).
+   - A `currentNode` pointer to keep track of the currently viewed page.
+
+2. Operations:
+
+   - Visit a New Page:
+     - When a new page is visited:
+       - Create a new node for the new URL.
+       - If the `currentNode` is not the last node in the list (i.e., the user has gone back and then visited a new page), delete all the nodes after the `currentNode`.
+       - Set the `next` of the `currentNode` to the new node.
+       - Set the `prev` of the new node to the `currentNode`.
+       - Update `currentNode` to point to the new node.
+
+   - Go Back:
+     - If the `currentNode` has a `prev` node (i.e., it's not the first page):
+       - Move the `currentNode` to its `prev` node.
+       - Display the URL of the new `currentNode`.
+     - Otherwise, there is no backward history.
+
+   - Go Forward:
+     - If the `currentNode` has a `next` node (i.e., it's not the last page):
+       - Move the `currentNode` to its `next` node.
+       - Display the URL of the new `currentNode`.
+     - Otherwise, there is no forward history.
+
+3. Initial State:
+   - The list is initially empty.
+   - When the first page is visited, it becomes the `currentNode` and the head of the list.

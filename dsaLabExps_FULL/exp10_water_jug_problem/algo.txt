@@ -1,0 +1,55 @@
+Algorithm: Water Jug Problem (Graph Modeling with BFS)
+
+Problem Description:
+Given three containers of specific capacities (10L, 7L, 4L). The 7L and 4L containers start full, the 10L is empty. We can pour water between containers until the source is empty or the destination is full. Determine if it's possible to get exactly 2 litres in the 7L or 4L container.
+
+Modeling as a Graph Problem:
+
+- States (Nodes): Each state in the problem can be represented as a tuple (c1, c2, c3), where c1, c2, and c3 are the current amounts of water in the 10L, 7L, and 4L containers, respectively.
+- Transitions (Edges): An edge exists between two states if one can be reached from the other by a single pouring operation.
+
+Pouring Operations (Rules):
+For any two distinct containers A and B:
+1. Pour from A to B until A is empty.
+2. Pour from A to B until B is full.
+
+Goal State: A state (c1, c2, c3) where c2 == 2 or c3 == 2.
+
+Algorithm Steps (BFS):
+
+1. Initialization:
+   - Define container capacities: CAP1 = 10, CAP2 = 7, CAP3 = 4.
+   - initial_state = (0, CAP2, CAP3) (10L empty, 7L full, 4L full).
+   - Create a queue for BFS and enqueue initial_state.
+   - Create a visited set (e.g., a 2D/3D array or hash set) to store visited states to avoid cycles and redundant computations. Mark initial_state as visited.
+
+2. BFS Loop:
+   - While queue is not empty:
+     - current_state = dequeue(queue)
+     - c1 = current_state.c1, c2 = current_state.c2, c3 = current_state.c3
+
+     - Check for Goal:
+       - If c2 == 2 or c3 == 2:
+         - Return true (goal reached).
+
+     - Generate Next States (Pouring Operations):
+       - For each possible pouring operation (from any container to any other container):
+         - Calculate next_state = (new_c1, new_c2, new_c3) after the pour.
+         - If next_state has not been visited:
+           - Mark next_state as visited.
+           - Enqueue next_state.
+
+3. No Solution:
+   - If the queue becomes empty and the goal state was not reached, return false.
+
+Detailed Pouring Logic (Example: Pour from 7L to 10L):
+
+Function pour(from_capacity, to_capacity, from_current, to_current):
+    amount_to_pour = min(from_current, to_capacity - to_current)
+    new_from_current = from_current - amount_to_pour
+    new_to_current = to_current + amount_to_pour
+    Return (new_from_current, new_to_current)
+
+Apply this pour logic for all 6 pairs of containers (1->2, 1->3, 2->1, 2->3, 3->1, 3->2).
+
+Note on visited set: A 3D boolean array visited[CAP1+1][CAP2+1][CAP3+1] can be used, where visited[i][j][k] is true if state (i, j, k) has been visited.

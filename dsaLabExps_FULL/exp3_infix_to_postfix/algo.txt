@@ -1,0 +1,60 @@
+Algorithm: Infix to Postfix Conversion and Evaluation
+
+Part 1: Infix to Postfix Conversion
+
+1. Initialize:
+   - Create an empty stack for operators.
+   - Create an empty string or character array for the postfix expression.
+
+2. Scan the Infix Expression:
+   - Iterate through the infix expression from left to right, token by token (operands, operators, parentheses).
+
+3. Process Tokens:
+   - If the token is an operand (a number or a variable):
+     - Append it to the postfix expression.
+   - If the token is an operator:
+     - While the stack is not empty, the top of the stack is not a left parenthesis, and the precedence of the current operator is less than or equal to the precedence of the operator on top of the stack:
+       - Pop an operator from the stack and append it to the postfix expression.
+     - Push the current operator onto the stack.
+   - If the token is a left parenthesis (:
+     - Push it onto the stack.
+   - If the token is a right parenthesis ):
+     - While the stack is not empty and the top of the stack is not a left parenthesis:
+       - Pop an operator from the stack and append it to the postfix expression.
+     - Pop the left parenthesis from the stack (and discard it).
+
+4. Finalize:
+   - After scanning the entire infix expression, while the stack is not empty:
+     - Pop any remaining operators from the stack and append them to the postfix expression.
+
+5. Output:
+   - The resulting string or character array is the postfix expression.
+
+Part 2: Postfix Expression Evaluation
+
+1. Initialize:
+   - Create an empty stack for operands (numbers).
+
+2. Scan the Postfix Expression:
+   - Iterate through the postfix expression from left to right, token by token.
+
+3. Process Tokens:
+   - If the token is an operand (a number):
+     - Push it onto the operand stack.
+   - If the token is an operator:
+     - Pop the top two operands from the stack (let's call them operand2 and operand1).
+     - Perform the operation: result = operand1 operator operand2.
+     - Push the result back onto the operand stack.
+
+4. Finalize:
+   - After scanning the entire postfix expression, the final result will be the only value remaining on the stack.
+
+5. Output:
+   - Pop the result from the stack and return it.
+
+Operator Precedence:
+
+- ^ (Exponentiation) - Highest precedence
+- *, / (Multiplication, Division) - Medium precedence
+- +, - (Addition, Subtraction) - Lowest precedence
+- Parentheses () are used to override precedence.

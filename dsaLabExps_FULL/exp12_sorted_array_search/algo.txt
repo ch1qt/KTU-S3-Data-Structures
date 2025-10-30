@@ -1,0 +1,46 @@
+Algorithm: Binary Search in a Sorted Array
+
+Problem Description:
+Given a sorted array of items and a target item, find the index of the target item in the array. If the item is not found, return -1.
+
+Algorithm Steps (Iterative Binary Search):
+
+1. Function `binarySearch(array, target)`:
+
+   Function binarySearch(array: array of integers, target: integer) -> integer:
+       low = 0
+       high = length(array) - 1
+
+       While low <= high:
+           mid = low + (high - low) / 2  // To prevent potential overflow for very large low/high
+
+           If array[mid] == target:
+               Return mid // Target found at index mid
+           Else If array[mid] < target:
+               low = mid + 1 // Target is in the right half
+           Else (array[mid] > target):
+               high = mid - 1 // Target is in the left half
+
+       Return -1 // Target not found
+
+Algorithm Steps (Recursive Binary Search):
+
+1. Function `binarySearchRecursive(array, target, low, high)`:
+
+   Function binarySearchRecursive(array: array of integers, target: integer, low: integer, high: integer) -> integer:
+       If low > high:
+           Return -1 // Base case: Target not found
+
+       mid = low + (high - low) / 2
+
+       If array[mid] == target:
+           Return mid // Target found
+       Else If array[mid] < target:
+           Return binarySearchRecursive(array, target, mid + 1, high) // Search in right half
+       Else (array[mid] > target):
+           Return binarySearchRecursive(array, target, low, mid - 1) // Search in left half
+
+Key Characteristics of Binary Search:
+- Requires Sorted Array: The input array *must* be sorted for binary search to work correctly.
+- Divide and Conquer: It repeatedly divides the search interval in half.
+- Time Complexity: O(log n) in the worst case, making it very efficient for large datasets.

@@ -1,0 +1,39 @@
+Algorithm: Maximum Activity Points with K Events
+
+Problem Description:
+Given an array `A` of activity points for `n` events, and an integer `k` representing the maximum number of events you can participate in, find the maximum total activity points you can earn.
+
+Analysis:
+This problem is a classic selection problem. To maximize the total points, we should choose the `k` events that offer the highest activity points.
+
+Algorithm Steps:
+
+1. Input:
+   - An array `A` of `n` integers representing activity points.
+   - An integer `k` representing the maximum number of events to choose.
+
+2. Sort the Array:
+   - Sort the array `A` in descending order. This places the events with the highest activity points at the beginning of the array.
+
+3. Calculate Maximum Points:
+   - Initialize a variable `max_points` to 0.
+   - Iterate from `i = 0` to `k - 1` (or until the end of the array if `k > n`).
+   - In each iteration, add the value of `A[i]` to `max_points`.
+
+4. Output:
+   - Return `max_points`.
+
+Example:
+
+- `A = {10, 5, 20, 8, 15}`
+- `k = 3`
+
+1. Sort `A` in descending order: `A_sorted = {20, 15, 10, 8, 5}`
+2. Calculate `max_points`:
+   - `max_points = A_sorted[0] + A_sorted[1] + A_sorted[2]`
+   - `max_points = 20 + 15 + 10 = 45`
+3. Output: `45`
+
+Implementation Notes:
+- Any standard sorting algorithm (like Quick Sort or Merge Sort) can be used.
+- The time complexity will be dominated by the sorting step, which is typically O(n log n).

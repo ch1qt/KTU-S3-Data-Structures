@@ -1,0 +1,55 @@
+Algorithm: Queue, DEQUEUE, and Circular Queue using Arrays
+
+Part 1: Simple Queue
+
+1. Data Structures:
+   - An array `queue` to store the elements.
+   - `front`: An index to point to the front of the queue.
+   - `rear`: An index to point to the rear of the queue.
+   - `MAX_SIZE`: The maximum size of the queue.
+
+2. Enqueue (Insertion):
+   - Check if the queue is full (`rear == MAX_SIZE - 1`). If so, display an overflow error.
+   - Otherwise, increment `rear` and insert the new element at `queue[rear]`.
+
+3. Dequeue (Deletion):
+   - Check if the queue is empty (`front == rear`). If so, display an underflow error.
+   - Otherwise, increment `front` and return the element at `queue[front]`.
+
+Part 2: Double-Ended Queue (DEQUEUE)
+
+1. Data Structures:
+   - An array `dequeue` to store the elements.
+   - `front`: An index to point to the front of the queue.
+   - `rear`: An index to point to the rear of the queue.
+   - `MAX_SIZE`: The maximum size of the queue.
+
+2. Insert at Rear (Enqueue):
+   - Same as the simple queue's enqueue operation.
+
+3. Delete from Front (Dequeue):
+   - Same as the simple queue's dequeue operation.
+
+4. Insert at Front:
+   - Check if `front` is at the beginning of the array (`front == -1`). If so, this operation is not possible (or requires shifting elements).
+   - Otherwise, insert the element at `dequeue[front]` and decrement `front`.
+
+5. Delete from Rear:
+   - Check if the queue is empty. If so, display an underflow error.
+   - Otherwise, return the element at `dequeue[rear]` and decrement `rear`.
+
+Part 3: Circular Queue
+
+1. Data Structures:
+   - An array `cqueue` to store the elements.
+   - `front`: An index to point to the front of the queue.
+   - `rear`: An index to point to the rear of the queue.
+   - `MAX_SIZE`: The maximum size of the queue.
+
+2. Enqueue (Insertion):
+   - Check if the queue is full (`(rear + 1) % MAX_SIZE == front`). If so, display an overflow error.
+   - Otherwise, update `rear = (rear + 1) % MAX_SIZE` and insert the new element at `cqueue[rear]`.
+
+3. Dequeue (Deletion):
+   - Check if the queue is empty (`front == rear`). If so, display an underflow error.
+   - Otherwise, update `front = (front + 1) % MAX_SIZE` and return the element at `cqueue[front]`.

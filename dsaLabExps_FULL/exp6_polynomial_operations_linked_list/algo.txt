@@ -1,0 +1,92 @@
+Algorithm: Polynomial Addition and Multiplication using Singly Linked Lists
+
+Data Structure:
+
+Structure Node:
+    coefficient: integer
+    exponent: integer
+    next: pointer to Node
+
+Structure Polynomial:
+    head: pointer to Node
+
+Part 1: Polynomial Addition
+
+Function addPolynomials(poly1: Polynomial, poly2: Polynomial) -> Polynomial:
+    resultPoly = new Polynomial()
+    ptr1 = poly1.head
+    ptr2 = poly2.head
+
+    While ptr1 is not NULL and ptr2 is not NULL:
+        If ptr1.exponent > ptr2.exponent:
+            addTerm(resultPoly, ptr1.coefficient, ptr1.exponent)
+            ptr1 = ptr1.next
+        Else If ptr2.exponent > ptr1.exponent:
+            addTerm(resultPoly, ptr2.coefficient, ptr2.exponent)
+            ptr2 = ptr2.next
+        Else (ptr1.exponent == ptr2.exponent):
+            sumCoeff = ptr1.coefficient + ptr2.coefficient
+            If sumCoeff is not 0:
+                addTerm(resultPoly, sumCoeff, ptr1.exponent)
+            ptr1 = ptr1.next
+            ptr2 = ptr2.next
+
+    While ptr1 is not NULL:
+        addTerm(resultPoly, ptr1.coefficient, ptr1.exponent)
+        ptr1 = ptr1.next
+
+    While ptr2 is not NULL:
+        addTerm(resultPoly, ptr2.coefficient, ptr2.exponent)
+        ptr2 = ptr2.next
+
+    Return resultPoly
+
+Part 2: Polynomial Multiplication
+
+Function multiplyPolynomials(poly1: Polynomial, poly2: Polynomial) -> Polynomial:
+    resultPoly = new Polynomial()
+    ptr1 = poly1.head
+
+    If poly1.head is NULL or poly2.head is NULL:
+        Return resultPoly // Result is zero polynomial
+
+    While ptr1 is not NULL:
+        ptr2 = poly2.head
+        tempPoly = new Polynomial()
+        While ptr2 is not NULL:
+            coeff = ptr1.coefficient * ptr2.coefficient
+            exp = ptr1.exponent + ptr2.exponent
+            addTerm(tempPoly, coeff, exp)
+            ptr2 = ptr2.next
+        resultPoly = addPolynomials(resultPoly, tempPoly)
+        ptr1 = ptr1.next
+
+    Return resultPoly
+
+Helper Function: addTerm (to add a term to a polynomial in sorted order)
+
+Function addTerm(poly: Polynomial, coeff: integer, exp: integer):
+    If coeff is 0:
+        Return
+
+    newNode = new Node(coeff, exp)
+
+    If poly.head is NULL or exp > poly.head.exponent:
+        newNode.next = poly.head
+        poly.head = newNode
+        Return
+
+    current = poly.head
+    While current.next is not NULL and exp < current.next.exponent:
+        current = current.next
+
+    If current.next is not NULL and exp == current.next.exponent:
+        current.next.coefficient = current.next.coefficient + coeff
+        If current.next.coefficient is 0:
+            // Remove the node if coefficient becomes zero
+            nodeToDelete = current.next
+            current.next = current.next.next
+            delete nodeToDelete
+    Else:
+        newNode.next = current.next
+        current.next = newNode

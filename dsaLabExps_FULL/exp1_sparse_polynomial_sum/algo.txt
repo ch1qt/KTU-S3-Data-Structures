@@ -1,0 +1,38 @@
+Algorithm: Sum of two sparse polynomials using arrays
+
+1. Representing the Polynomials:
+   - Each polynomial is represented by a structure or an array of terms.
+   - Each term consists of two parts: coefficient and exponent.
+   - We'll use an array of structures to store the terms of each polynomial.
+   - We also need to store the total number of terms in each polynomial.
+
+2. Input:
+   - Read the number of terms in the first polynomial.
+   - Read the coefficient and exponent for each term of the first polynomial and store them in an array of structures.
+   - Read the number of terms in the second polynomial.
+   - Read the coefficient and exponent for each term of the second polynomial and store them in another array of structures.
+
+3. Adding the Polynomials:
+   - Initialize three pointers (or indices), i, j, and k, to 0. i for the first polynomial, j for the second, and k for the resultant polynomial.
+   - Compare the exponents of the terms at the current positions of the first and second polynomials (poly1[i].exponent and poly2[j].exponent).
+   - Case 1: poly1[i].exponent > poly2[j].exponent
+     - The term from the first polynomial has a higher exponent.
+     - Copy the term from the first polynomial to the resultant polynomial (result[k]).
+     - Increment i and k.
+   - Case 2: poly1[i].exponent < poly2[j].exponent
+     - The term from the second polynomial has a higher exponent.
+     - Copy the term from the second polynomial to the resultant polynomial (result[k]).
+     - Increment j and k.
+   - Case 3: poly1[i].exponent == poly2[j].exponent
+     - The exponents are equal.
+     - Add the coefficients of the terms (poly1[i].coefficient + poly2[j].coefficient).
+     - If the sum of the coefficients is not zero, create a new term in the resultant polynomial with the sum as the coefficient and the common exponent.
+     - Increment i, j, and k.
+
+4. Copying Remaining Terms:
+   - After the main loop, one of the polynomials might still have remaining terms.
+   - Copy any remaining terms from the first polynomial to the resultant polynomial.
+   - Copy any remaining terms from the second polynomial to the resultant polynomial.
+
+5. Output:
+   - Print the terms of the resultant polynomial.

@@ -1,0 +1,59 @@
+Algorithm: Dictionary using Binary Search Tree (BST)
+
+Data Structure:
+
+Structure Node:
+    word: string
+    meaning: string
+    left: pointer to Node
+    right: pointer to Node
+
+Operations:
+
+1. Insert (word, meaning):
+
+   Function insert(root: pointer to Node, word: string, meaning: string) -> pointer to Node:
+       If root is NULL:
+           newNode = createNode(word, meaning)
+           Return newNode
+
+       If word < root.word:
+           root.left = insert(root.left, word, meaning)
+       Else If word > root.word:
+           root.right = insert(root.right, word, meaning)
+       Else (word == root.word):
+           // Word already exists, update meaning or handle as duplicate
+           root.meaning = meaning // Update meaning
+
+       Return root
+
+2. Search (word):
+
+   Function search(root: pointer to Node, word: string) -> string:
+       If root is NULL:
+           Return "Word not found"
+
+       If word == root.word:
+           Return root.meaning
+       Else If word < root.word:
+           Return search(root.left, word)
+       Else (word > root.word):
+           Return search(root.right, word)
+
+3. Inorder Traversal (to display all words in alphabetical order):
+
+   Function inorderTraversal(root: pointer to Node):
+       If root is not NULL:
+           inorderTraversal(root.left)
+           Print root.word, ": ", root.meaning
+           inorderTraversal(root.right)
+
+Helper Function: createNode
+
+Function createNode(word: string, meaning: string) -> pointer to Node:
+    newNode = new Node()
+    newNode.word = word
+    newNode.meaning = meaning
+    newNode.left = NULL
+    newNode.right = NULL
+    Return newNode

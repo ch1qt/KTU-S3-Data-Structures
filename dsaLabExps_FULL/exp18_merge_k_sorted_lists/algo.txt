@@ -1,0 +1,60 @@
+Algorithm: Merge K Sorted Lists using a Min-Heap
+
+Problem Description:
+Given `k` sorted linked lists, merge them into a single sorted linked list.
+
+Data Structures:
+
+Node: Structure for a linked list node.
+    data: integer
+    next: pointer to Node
+
+MinHeapNode: Structure for a node in the min-heap.
+    data: integer
+    list_index: integer (index of the list from which the element is taken)
+
+MinHeap: A min-heap data structure that stores `MinHeapNode`s.
+    // The heap is ordered by the `data` field of `MinHeapNode`.
+
+Algorithm Steps:
+
+1. Initialization:
+   - Create a `result` linked list, initially empty.
+   - Create a min-heap of size `k`.
+   - For each of the `k` lists:
+     - If the list is not empty, take its first element and create a `MinHeapNode`.
+     - The `MinHeapNode` will contain the element's data and the index of the list it came from.
+     - Insert this `MinHeapNode` into the min-heap.
+
+2. Merging Process:
+   - While the min-heap is not empty:
+     - Extract Minimum:
+       - Extract the `MinHeapNode` with the smallest `data` from the min-heap. Let this be `min_node`.
+       - Append `min_node.data` to the `result` linked list.
+
+     - Insert Next Element:
+       - Get the index of the list from which `min_node` was taken (`list_index`).
+       - Move to the next element in the list at `list_index`.
+       - If there is a next element:
+         - Create a new `MinHeapNode` with this next element's data and the same `list_index`.
+         - Insert this new `MinHeapNode` into the min-heap.
+
+3. Output:
+   - The `result` linked list is the final merged sorted list.
+
+Example:
+
+- `list1 = {1, 5, 9}`
+- `list2 = {2, 6, 10}`
+- `list3 = {3, 7, 11}`
+
+1. Initialize Min-Heap: `{(1, list1), (2, list2), (3, list3)}`
+2. Extract 1: `result = {1}`. Insert next from `list1` (5). Heap: `{(2, list2), (3, list3), (5, list1)}`
+3. Extract 2: `result = {1, 2}`. Insert next from `list2` (6). Heap: `{(3, list3), (5, list1), (6, list2)}`
+4. Extract 3: `result = {1, 2, 3}`. Insert next from `list3` (7). Heap: `{(5, list1), (6, list2), (7, list3)}`
+5. ...and so on, until all lists are exhausted.
+
+Complexity:
+- Time Complexity: O(N log k), where N is the total number of elements in all lists and k is the number of lists.
+  - Each element is inserted and extracted from the heap once (O(log k) per element).
+- Space Complexity: O(k) for the min-heap.

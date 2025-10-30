@@ -1,0 +1,147 @@
+Algorithm: Bubble Sort, Insertion Sort, Radix Sort, Quick Sort, Merge Sort
+
+Comparison Metric:
+For comparison, we will count the number of comparisons and swaps/assignments performed by each algorithm. These are fundamental operations that contribute to the time complexity.
+
+Part 1: Bubble Sort
+
+Function bubbleSort(array: list of integers, n: integer):
+    comparisons = 0
+    swaps = 0
+    For i from 0 to n-2:
+        For j from 0 to n-2-i:
+            comparisons = comparisons + 1
+            If array[j] > array[j+1]:
+                Swap array[j] and array[j+1]
+                swaps = swaps + 1
+    Print "Bubble Sort: Comparisons = ", comparisons, ", Swaps = ", swaps
+
+Part 2: Insertion Sort
+
+Function insertionSort(array: list of integers, n: integer):
+    comparisons = 0
+    assignments = 0
+    For i from 1 to n-1:
+        key = array[i]
+        assignments = assignments + 1
+        j = i - 1
+        While j >= 0 and array[j] > key:
+            comparisons = comparisons + 1
+            array[j+1] = array[j]
+            assignments = assignments + 1
+            j = j - 1
+        If j >= 0: // For the last comparison if loop condition was false
+            comparisons = comparisons + 1
+        array[j+1] = key
+        assignments = assignments + 1
+    Print "Insertion Sort: Comparisons = ", comparisons, ", Assignments = ", assignments
+
+Part 3: Quick Sort
+
+Function quickSort(array: list of integers, low: integer, high: integer):
+    If low < high:
+        pivot_index = partition(array, low, high)
+        quickSort(array, low, pivot_index - 1)
+        quickSort(array, pivot_index + 1, high)
+
+Function partition(array: list of integers, low: integer, high: integer) -> integer:
+    pivot = array[high]
+    i = low - 1
+    For j from low to high - 1:
+        comparisons = comparisons + 1
+        If array[j] <= pivot:
+            i = i + 1
+            Swap array[i] and array[j]
+            swaps = swaps + 1
+    Swap array[i+1] and array[high]
+    swaps = swaps + 1
+    Return i + 1
+
+Part 4: Merge Sort
+
+Function mergeSort(array: list of integers, low: integer, high: integer):
+    If low < high:
+        mid = low + (high - low) / 2
+        mergeSort(array, low, mid)
+        mergeSort(array, mid + 1, high)
+        merge(array, low, mid, high)
+
+Function merge(array: list of integers, low: integer, mid: integer, high: integer):
+    n1 = mid - low + 1
+    n2 = high - mid
+    left_array = new array of size n1
+    right_array = new array of size n2
+
+    For i from 0 to n1-1:
+        left_array[i] = array[low + i]
+        assignments = assignments + 1
+    For j from 0 to n2-1:
+        right_array[j] = array[mid + 1 + j]
+        assignments = assignments + 1
+
+    i = 0, j = 0, k = low
+    While i < n1 and j < n2:
+        comparisons = comparisons + 1
+        If left_array[i] <= right_array[j]:
+            array[k] = left_array[i]
+            i = i + 1
+        Else:
+            array[k] = right_array[j]
+            j = j + 1
+        assignments = assignments + 1
+        k = k + 1
+
+    While i < n1:
+        array[k] = left_array[i]
+        assignments = assignments + 1
+        i = i + 1
+        k = k + 1
+
+    While j < n2:
+        array[k] = right_array[j]
+        assignments = assignments + 1
+        j = j + 1
+        k = k + 1
+
+Part 5: Radix Sort
+
+Function radixSort(array: list of integers, n: integer):
+    max_val = findMax(array, n)
+    place = 1
+    While max_val / place > 0:
+        countingSort(array, n, place)
+        place = place * 10
+
+Function countingSort(array: list of integers, n: integer, place: integer):
+    output = new array of size n
+    count = new array of size 10 (initialized to 0)
+    assignments = assignments + n // For output array
+    assignments = assignments + 10 // For count array
+
+    For i from 0 to n-1:
+        digit = (array[i] / place) % 10
+        count[digit] = count[digit] + 1
+        assignments = assignments + 1
+
+    For i from 1 to 9:
+        count[i] = count[i] + count[i-1]
+        assignments = assignments + 1
+
+    For i from n-1 down to 0:
+        digit = (array[i] / place) % 10
+        output[count[digit] - 1] = array[i]
+        count[digit] = count[digit] - 1
+        assignments = assignments + 1
+
+    For i from 0 to n-1:
+        array[i] = output[i]
+        assignments = assignments + 1
+
+Function findMax(array: list of integers, n: integer) -> integer:
+    max_val = array[0]
+    For i from 1 to n-1:
+        comparisons = comparisons + 1
+        If array[i] > max_val:
+            max_val = array[i]
+            assignments = assignments + 1
+    Return max_val
