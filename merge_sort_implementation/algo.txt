@@ -1,0 +1,44 @@
+Algorithm for Merge Sort:
+
+**1. Concept:**
+   Merge Sort is a divide-and-conquer algorithm. It divides the unsorted list into n sublists, each containing one element (a list of one element is considered sorted). Then, it repeatedly merges sublists to produce new sorted sublists until there is only one sorted list remaining.
+
+**2. Steps:**
+
+   *   **`mergeSort(arr, left, right)` function:**
+      1.  **Base Case:** If `left` is greater than or equal to `right`, the array segment is already sorted (or contains one element), so return.
+      2.  **Divide:** Calculate the middle index: `mid = left + (right - left) / 2`.
+      3.  **Conquer (Recursively Sort):**
+          a.  Call `mergeSort(arr, left, mid)` to sort the first half.
+          b.  Call `mergeSort(arr, mid + 1, right)` to sort the second half.
+      4.  **Combine (Merge):** Call `merge(arr, left, mid, right)` to merge the two sorted halves.
+
+   *   **`merge(arr, left, mid, right)` function:**
+      1.  Determine the sizes of the two subarrays to be merged:
+          *   `n1 = mid - left + 1` (size of left subarray)
+          *   `n2 = right - mid` (size of right subarray)
+      2.  Create two temporary arrays, `L[n1]` and `R[n2]`, to hold the elements of the left and right subarrays, respectively.
+      3.  Copy elements from `arr[left...mid]` into `L[]`.
+      4.  Copy elements from `arr[mid+1...right]` into `R[]`.
+      5.  Initialize three pointers:
+          *   `i = 0` (initial index of first subarray `L`)
+          *   `j = 0` (initial index of second subarray `R`)
+          *   `k = left` (initial index of merged subarray `arr`)
+      6.  **Merge the temporary arrays back into `arr[left...right]`:**
+          *   While `i < n1` and `j < n2`:
+              *   If `L[i] <= R[j]`:
+                  *   `arr[k] = L[i]`
+                  *   `i++`
+              *   Else:
+                  *   `arr[k] = R[j]`
+                  *   `j++`
+              *   `k++`
+      7.  **Copy remaining elements (if any):**
+          *   While `i < n1`:
+              *   `arr[k] = L[i]`
+              *   `i++`
+              *   `k++`
+          *   While `j < n2`:
+              *   `arr[k] = R[j]`
+              *   `j++`
+              *   `k++`

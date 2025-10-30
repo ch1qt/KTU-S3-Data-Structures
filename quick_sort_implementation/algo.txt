@@ -1,0 +1,23 @@
+Algorithm for Quick Sort:
+
+**1. Concept:**
+   Quick Sort is a highly efficient, in-place sorting algorithm. It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively. This process is repeated until the entire array is sorted.
+
+**2. Steps:**
+
+   *   **`quickSort(arr, low, high)` function:**
+      1.  **Base Case:** If `low` is less than `high` (meaning there's more than one element to sort):
+          a.  **Partition:** Call `partition(arr, low, high)` to select a pivot and rearrange the array such that elements smaller than the pivot are on its left, and elements greater are on its right. This function returns the index of the pivot after partitioning (`pi`).
+          b.  **Recursively Sort Sub-arrays:**
+              i.  Call `quickSort(arr, low, pi - 1)` to sort the sub-array before the pivot.
+              ii. Call `quickSort(arr, pi + 1, high)` to sort the sub-array after the pivot.
+
+   *   **`partition(arr, low, high)` function:**
+      1.  **Choose Pivot:** Select an element as the pivot. A common choice is the last element of the array segment (`arr[high]`).
+      2.  Initialize an index `i` (index of smaller element) to `low - 1`.
+      3.  **Iterate and Rearrange:** Loop through the array from `j = low` to `high - 1`:
+          a.  If `arr[j]` is less than or equal to the `pivot`:
+              i.  Increment `i`.
+              ii. Swap `arr[i]` and `arr[j]`.
+      4.  **Place Pivot in Correct Position:** Swap `arr[i + 1]` and `arr[high]` (the pivot).
+      5.  Return `i + 1` (the final index of the pivot).

@@ -1,0 +1,46 @@
+Algorithm for Spell Checker with Word Suggestions Using Hash Table:
+
+**1. Concept:**
+   A spell checker with word suggestions can be implemented using a hash table to store a dictionary of valid words. When a word is checked, we look it up in the hash table. If not found, we generate possible suggestions by applying common edit operations (e.g., insertion, deletion, substitution, transposition of characters) and check if these suggested words exist in the dictionary.
+
+**2. Data Structure: Hash Table**
+   *   A hash table (or hash map) will store the dictionary words for efficient lookup.
+   *   Each entry in the hash table could be a linked list to handle collisions (separate chaining).
+
+**3. Steps:**
+
+   *   **Initialization (Building the Dictionary):**
+      1.  Read a list of valid words (e.g., from a file).
+      2.  For each word:
+          a.  Compute its hash value.
+          b.  Insert the word into the hash table at the computed index. Handle collisions (e.g., by adding to a linked list at that index).
+
+   *   **`checkWord(word)` function:**
+      1.  Compute the hash value for the `word`.
+      2.  Look up the `word` in the hash table at the corresponding index.
+      3.  If the `word` is found, return "Correct".
+      4.  If the `word` is not found, proceed to generate suggestions.
+
+   *   **`generateSuggestions(word)` function:**
+      1.  Initialize an empty list of `suggestions`.
+      2.  Apply common edit operations to the `word` to create new candidate words:
+          a.  **Deletion:** Remove one character at each possible position.
+          b.  **Transposition:** Swap adjacent characters at each possible position.
+          c.  **Substitution:** Replace one character with every possible letter (a-z) at each position.
+          d.  **Insertion:** Insert every possible letter (a-z) at each possible position.
+      3.  For each `candidate_word` generated:
+          a.  Compute its hash value.
+          b.  Check if `candidate_word` exists in the hash table (using `checkWord` logic).
+          c.  If it exists, add `candidate_word` to the `suggestions` list.
+      4.  Return the `suggestions` list.
+
+   *   **Main Program Flow:**
+      1.  Build the dictionary hash table.
+      2.  Prompt the user to enter a word to check.
+      3.  Call `checkWord(user_word)`.
+      4.  If `checkWord` returns "Correct", print "Word is spelled correctly."
+      5.  Else (word is misspelled):
+          a.  Print "Word is misspelled."
+          b.  Call `generateSuggestions(user_word)`.
+          c.  If `suggestions` list is not empty, print "Did you mean:" followed by the suggestions.
+          d.  If `suggestions` list is empty, print "No suggestions found."

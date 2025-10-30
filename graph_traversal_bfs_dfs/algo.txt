@@ -1,0 +1,31 @@
+Algorithm for Graph Traversal (BFS and DFS):
+
+**1. Breadth-First Search (BFS)**
+
+   *   **Concept:** Explore all neighbors at the current depth level before moving to the next depth level. Uses a Queue.
+   *   **Steps:**
+      1.  Start with a chosen node (source). Mark it as visited and add it to a Queue.
+      2.  While the Queue is not empty:
+          a.  Dequeue a node.
+          b.  Process (e.g., print) the dequeued node.
+          c.  For each unvisited neighbor of the dequeued node:
+              i.  Mark the neighbor as visited.
+              ii. Enqueue the neighbor.
+
+**2. Depth-First Search (DFS)**
+
+   *   **Concept:** Explore as far as possible along each branch before backtracking. Uses a Stack (or recursion, which uses the call stack).
+   *   **Steps (Recursive):**
+      1.  Start with a chosen node.
+      2.  Mark the current node as visited and process it.
+      3.  For each unvisited neighbor of the current node:
+          a.  Recursively call DFS on that neighbor.
+
+   *   **Steps (Iterative using Stack):**
+      1.  Start with a chosen node. Push it onto a Stack.
+      2.  While the Stack is not empty:
+          a.  Pop a node from the Stack.
+          b.  If the node has not been visited:
+              i.  Mark it as visited.
+              ii. Process the node.
+              iii. For each unvisited neighbor of the node (push them onto the stack, typically in reverse order to maintain desired traversal order if any).
