@@ -1,0 +1,49 @@
+Algorithm for Creating a Binary Tree for an Arithmetic Expression and Finding its Infix, Postfix, and Prefix Forms:
+
+**1. Representing an Expression Tree Node:**
+   *   Each node in the binary tree will store a character (either an operand or an operator).
+   *   A node structure: `struct TreeNode { char data; struct TreeNode *left; struct TreeNode *right; };`
+
+**2. Building the Expression Tree (from Postfix Expression):**
+   *   This is the most common and straightforward way to build an expression tree.
+   *   **Initialize:** Create an empty stack of `TreeNode` pointers.
+   *   **Scan Postfix Expression (left to right):**
+      *   **If Operand:** Create a new `TreeNode` with the operand as `data`. Push this node onto the stack.
+      *   **If Operator:** Create a new `TreeNode` with the operator as `data`.
+         *   Pop the top two nodes from the stack. The first popped node becomes the `right` child of the new operator node. The second popped node becomes the `left` child.
+         *   Push the new operator node onto the stack.
+   *   **Result:** After scanning the entire postfix expression, the single remaining node on the stack is the root of the expression tree.
+
+**3. Traversals to get Infix, Postfix, and Prefix Forms:**
+   *   **Infix Traversal (Left-Root-Right):**
+      *   `Infix(node)`:
+         *   If `node` is an operator, print `(`.
+         *   If `node->left` exists, call `Infix(node->left)`.
+         *   Print `node->data`.
+         *   If `node->right` exists, call `Infix(node->right)`.
+         *   If `node` is an operator, print `)`.
+      *   *Note: Parentheses are added to maintain correct order of operations in the infix expression.*
+
+   *   **Prefix Traversal (Root-Left-Right):**
+      *   `Prefix(node)`:
+         *   Print `node->data`.
+         *   If `node->left` exists, call `Prefix(node->left)`.
+         *   If `node->right` exists, call `Prefix(node->right)`.
+
+   *   **Postfix Traversal (Left-Right-Root):**
+      *   `Postfix(node)`:
+         *   If `node->left` exists, call `Postfix(node->left)`.
+         *   If `node->right` exists, call `Postfix(node->right)`.
+         *   Print `node->data`.
+
+**4. Main Program Flow:**
+   *   Get an arithmetic expression (e.g., in infix form).
+   *   Convert the infix expression to postfix (using the algorithm from Experiment 3).
+   *   Build the expression tree from the postfix expression.
+   *   Perform Infix, Prefix, and Postfix traversals on the built tree to display the respective forms.
+
+**Helper Function: `isOperator(char c)`:**
+   *   Returns `true` if `c` is an operator (`+`, `-`, `*`, `/`, `^`), `false` otherwise.
+
+**Helper Function: Stack for TreeNodes:**
+   *   Implement a stack to hold `TreeNode` pointers for building the tree. This will be similar to the character stack from Experiment 3, but storing `struct TreeNode*` instead of `char`.

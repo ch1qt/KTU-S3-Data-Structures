@@ -1,0 +1,41 @@
+Algorithm for Implementing Queue using an Array:
+
+1.  **Define Queue Structure:**
+    *   A queue can be represented using a fixed-size array.
+    *   Maintain two pointers/indices: `front` and `rear`.
+    *   `front` points to the first element (or the position before it).
+    *   `rear` points to the last element.
+    *   Also, keep track of the `size` or `count` of elements in the queue.
+    *   Define a `MAX_SIZE` for the array.
+
+2.  **Initialize Queue:**
+    *   Set `front = -1` (or 0, depending on implementation).
+    *   Set `rear = -1` (or -1, depending on implementation).
+    *   Set `count = 0`.
+
+3.  **Enqueue Operation (Adding an element):**
+    *   **Check for Overflow:** If `count` is equal to `MAX_SIZE`, the queue is full. Print an "Overflow" message and return.
+    *   **Increment `rear`:** Move `rear` to the next position.
+    *   **Add Element:** Place the new element at `array[rear]`.
+    *   **Handle First Element:** If `front` is -1 (meaning the queue was empty), set `front = 0`.
+    *   **Increment `count`:** Increase the count of elements.
+
+4.  **Dequeue Operation (Removing an element):**
+    *   **Check for Underflow:** If `count` is 0, the queue is empty. Print an "Underflow" message and return a special value (e.g., -1).
+    *   **Retrieve Element:** Get the element at `array[front]`.
+    *   **Increment `front`:** Move `front` to the next position.
+    *   **Decrement `count`:** Decrease the count of elements.
+    *   **Handle Last Element Removal:** If `count` becomes 0 after dequeuing, reset `front = -1` and `rear = -1` to indicate an empty queue.
+
+5.  **Peek/Front Operation (Viewing the front element):**
+    *   **Check for Empty:** If `count` is 0, the queue is empty. Print an "Empty" message and return a special value.
+    *   **Return Element:** Return the element at `array[front]`.
+
+6.  **isEmpty Operation:**
+    *   Return `true` if `count` is 0, `false` otherwise.
+
+7.  **isFull Operation:**
+    *   Return `true` if `count` is `MAX_SIZE`, `false` otherwise.
+
+8.  **Display Queue (Optional):**
+    *   Iterate from `front` to `rear` and print each element.

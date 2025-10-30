@@ -1,0 +1,39 @@
+Algorithm for Backward and Forward Navigation of Visited Web Pages using a Doubly Linked List:
+
+**1. Representing a Web Page History using a Doubly Linked List:**
+   *   Each node in the doubly linked list represents a visited web page.
+   *   A node structure: `struct PageNode { char url[MAX_URL_LENGTH]; struct PageNode *prev; struct PageNode *next; };`
+   *   Maintain a `currentPage` pointer that always points to the currently active web page node.
+
+**2. Initialize Browser History:**
+   *   Set `currentPage = NULL`.
+
+**3. Visit New Page Operation:**
+   *   **Create New Node:** Create a new `PageNode` for the `newURL`.
+   *   **Handle Empty History:** If `currentPage` is `NULL`:
+      *   Set `currentPage = newNode`.
+   *   **Handle Existing History:** If `currentPage` is not `NULL`:
+      *   Set `newNode->prev = currentPage`.
+      *   Set `currentPage->next = newNode`.
+      *   Set `currentPage = newNode`.
+      *   **Clear Forward History:** If there were any pages ahead of `currentPage` (i.e., `currentPage->next` was not `NULL` before adding `newNode`), these pages should be removed from the list as a new page visit overwrites the forward history. Traverse from `currentPage->next` and free all subsequent nodes.
+
+**4. Go Back Operation:**
+   *   **Check if Back is Possible:** If `currentPage->prev` is `NULL`, there are no previous pages. Print a message and do nothing.
+   *   **Navigate Back:** Set `currentPage = currentPage->prev`.
+
+**5. Go Forward Operation:**
+   *   **Check if Forward is Possible:** If `currentPage->next` is `NULL`, there are no forward pages. Print a message and do nothing.
+   *   **Navigate Forward:** Set `currentPage = currentPage->next`.
+
+**6. Display Current Page:**
+   *   If `currentPage` is `NULL`, print "No page visited yet."
+   *   Otherwise, print `currentPage->url`.
+
+**7. Display History (Optional):**
+   *   Traverse from the very first page (by going `prev` until `NULL` is reached, then `next` through all pages) and print each URL, indicating the `currentPage`.
+
+**Helper Function: `freeForwardHistory(node)`:**
+   *   Takes a node as input.
+   *   Traverses from `node->next` to the end of the list, freeing each node.
+   *   Sets `node->next = NULL`.

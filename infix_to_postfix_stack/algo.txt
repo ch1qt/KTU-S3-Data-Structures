@@ -1,0 +1,42 @@
+Algorithm for Infix to Postfix Conversion and Evaluation using a Stack:
+
+**Part 1: Infix to Postfix Conversion**
+
+1.  **Initialize:**
+    *   Create an empty stack for operators.
+    *   Create an empty string or list to store the postfix expression.
+
+2.  **Define Precedence:**
+    *   Assign precedence levels to operators (e.g., `^` highest, `*`, `/` medium, `+`, `-` lowest).
+    *   Parentheses have special handling.
+
+3.  **Scan Infix Expression (left to right):**
+    *   **Operand:** If the scanned character is an operand (number or variable), append it to the postfix expression.
+    *   **Opening Parenthesis `(`:** Push it onto the stack.
+    *   **Closing Parenthesis `)`:** Pop operators from the stack and append them to the postfix expression until an opening parenthesis `(` is encountered. Pop and discard the opening parenthesis.
+    *   **Operator:**
+        *   While the stack is not empty AND the top of the stack is not `(` AND the precedence of the scanned operator is less than or equal to the precedence of the operator at the top of the stack:
+            *   Pop the operator from the stack and append it to the postfix expression.
+        *   Push the scanned operator onto the stack.
+
+4.  **End of Expression:**
+    *   After scanning the entire infix expression, pop any remaining operators from the stack and append them to the postfix expression until the stack is empty.
+
+5.  **Result:** The generated string/list is the postfix expression.
+
+**Part 2: Postfix Expression Evaluation**
+
+1.  **Initialize:**
+    *   Create an empty stack for operands (numbers).
+
+2.  **Scan Postfix Expression (left to right):**
+    *   **Operand:** If the scanned character is an operand (number), push its value onto the operand stack.
+    *   **Operator:** If the scanned character is an operator:
+        *   Pop the top two operands from the stack (let's say `operand2` then `operand1`).
+        *   Perform the operation (`operand1 operator operand2`).
+        *   Push the result of the operation back onto the operand stack.
+
+3.  **End of Expression:**
+    *   After scanning the entire postfix expression, the final result will be the only element remaining on the operand stack.
+
+4.  **Result:** Pop and return the value from the stack.
