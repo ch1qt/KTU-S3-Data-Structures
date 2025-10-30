@@ -1,0 +1,56 @@
+Algorithm for Addition and Multiplication of Sparse Polynomials using Singly Linked Lists:
+
+**1. Representing a Polynomial using a Singly Linked List:**
+   *   Each node in the linked list represents a non-zero term of the polynomial.
+   *   A node structure: `struct TermNode { int coefficient; int exponent; struct TermNode *next; };`
+   *   A polynomial is represented by a pointer to its first `TermNode`.
+   *   Terms should be stored in decreasing order of exponents for easier processing.
+
+**2. Creating a Polynomial (from user input or array):**
+   *   Initialize an empty linked list (head = NULL).
+   *   For each term (coefficient, exponent):
+      *   Create a new `TermNode`.
+      *   Insert it into the linked list while maintaining the sorted order of exponents.
+
+**3. Displaying a Polynomial:**
+   *   Traverse the linked list from head to tail.
+   *   For each node, print `coefficient`x^`exponent`.
+   *   Add `+` between terms (except for the last one).
+
+**4. Addition of Two Sparse Polynomials (Poly1 + Poly2):**
+   *   Initialize an empty result polynomial linked list (result_head = NULL).
+   *   Use two pointers, `ptr1` for Poly1 and `ptr2` for Poly2, starting at their respective heads.
+   *   While both `ptr1` and `ptr2` are not NULL:
+      *   **If `ptr1->exponent == ptr2->exponent`:**
+         *   Add their coefficients: `sum_coeff = ptr1->coefficient + ptr2->coefficient`.
+         *   If `sum_coeff` is not zero, create a new node `(sum_coeff, ptr1->exponent)` and add it to `result_head`.
+         *   Move `ptr1` to `ptr1->next` and `ptr2` to `ptr2->next`.
+      *   **If `ptr1->exponent > ptr2->exponent`:**
+         *   Create a new node `(ptr1->coefficient, ptr1->exponent)` and add it to `result_head`.
+         *   Move `ptr1` to `ptr1->next`.
+      *   **If `ptr2->exponent > ptr1->exponent`:**
+         *   Create a new node `(ptr2->coefficient, ptr2->exponent)` and add it to `result_head`.
+         *   Move `ptr2` to `ptr2->next`.
+   *   **Append Remaining Terms:** After one polynomial is exhausted, append all remaining terms of the other polynomial to `result_head`.
+   *   Return `result_head`.
+
+**5. Multiplication of Two Sparse Polynomials (Poly1 * Poly2):**
+   *   Initialize an empty result polynomial linked list (result_head = NULL).
+   *   Use a pointer `ptr1` for Poly1, starting at its head.
+   *   While `ptr1` is not NULL:
+      *   Initialize a temporary polynomial linked list (temp_poly_head = NULL).
+      *   Use a pointer `ptr2` for Poly2, starting at its head.
+      *   While `ptr2` is not NULL:
+         *   Calculate `product_coeff = ptr1->coefficient * ptr2->coefficient`.
+         *   Calculate `product_exponent = ptr1->exponent + ptr2->exponent`.
+         *   If `product_coeff` is not zero, create a new node `(product_coeff, product_exponent)` and add it to `temp_poly_head` (maintaining sorted order).
+         *   Move `ptr2` to `ptr2->next`.
+      *   Add `temp_poly_head` to `result_head` (this involves merging two sorted polynomial linked lists, combining like terms).
+      *   Move `ptr1` to `ptr1->next`.
+   *   Return `result_head`.
+
+**Helper Function: `insertTerm(head, coeff, exp)`:**
+   *   Creates a new node with `coeff` and `exp`.
+   *   Inserts it into the linked list pointed to by `head` such that terms remain sorted by exponent in descending order.
+   *   If a term with the same exponent already exists, it adds the coefficients. If the sum becomes zero, the term is removed.
+   *   Handles cases for empty list, insertion at head, middle, and tail.

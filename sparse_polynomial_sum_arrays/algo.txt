@@ -1,0 +1,28 @@
+Algorithm for Sum of Two Sparse Polynomials using Arrays:
+
+1.  **Represent Polynomials:**
+    *   Each polynomial can be represented as an array of terms.
+    *   Each term has a coefficient and an exponent.
+    *   For sparse polynomials, store only non-zero terms.
+    *   A structure can be used to define a term: `struct Term { int coefficient; int exponent; };`
+
+2.  **Input Polynomials:**
+    *   Read the number of non-zero terms for the first polynomial.
+    *   Read the coefficient and exponent for each term of the first polynomial and store them in an array.
+    *   Repeat for the second polynomial.
+
+3.  **Initialize Result Polynomial:**
+    *   Create an empty array to store the terms of the resulting sum polynomial.
+
+4.  **Summing Process:**
+    *   Use two pointers, one for each input polynomial, starting from the first term (highest exponent).
+    *   Compare the exponents of the terms pointed to by the two pointers:
+        *   **If exponents are equal:** Add their coefficients. If the sum is non-zero, add a new term with this sum and the exponent to the result polynomial. Move both pointers to the next term.
+        *   **If exponent of polynomial 1 is greater:** Add the term from polynomial 1 to the result polynomial. Move pointer of polynomial 1 to the next term.
+        *   **If exponent of polynomial 2 is greater:** Add the term from polynomial 2 to the result polynomial. Move pointer of polynomial 2 to the next term.
+
+5.  **Handle Remaining Terms:**
+    *   After one polynomial is exhausted, add all remaining terms of the other polynomial to the result polynomial.
+
+6.  **Display Result:**
+    *   Print the terms of the resulting sum polynomial in a readable format.
